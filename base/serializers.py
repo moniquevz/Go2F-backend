@@ -4,7 +4,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Product
 from .models import Article
 from .models import Template
-
+from .models import Event
+from .models import ExclusiveContent
+from .models import Post
+from .models import Comment
 
 class UserSerializer(serializers.ModelSerializer):
     _id = serializers.SerializerMethodField(read_only=True)
@@ -46,4 +49,26 @@ class ArticleSerializer(serializers.ModelSerializer):
 class TemplateSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Template
+        fields = '__all__'
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Event
+        fields = '__all__'
+
+class ExclusiveContentSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = ExclusiveContent
+        fields = '__all__'
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Post
+        fields = '__all__'
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Comment
         fields = '__all__'
