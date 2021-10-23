@@ -15,6 +15,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
+rom django_email_verification import send_email
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -43,6 +44,8 @@ def registerUser(request):
             email = data['email'],
             password = make_password(data['password'])
         )
+        user.is_active = False
+        send_email(user)
         serializer = UserSerializerWithToken(user, many=False)
         return Response(serializer.data)
     except:
