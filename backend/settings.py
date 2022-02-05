@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+from dotenv import load_dotenv, find_dotenv
+import os
+load_dotenv(find_dotenv())
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django.contrib.sites',
     # Third-party
     'rest_framework',
     'corsheaders',
@@ -98,7 +101,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-SITE_ID = 1
+SITE_ID = 2
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -113,8 +116,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
-SOCIAL_AUTH_GOOGLE_KEY = '509249631574-4rr391nh10v6vifgfvub1eg8hceeee7b.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_KEY = '905265467281-j9r9657eajt56bqvkcddh0deqdjv98st.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_SECRET = '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'
 
 
 
@@ -203,8 +206,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+
 

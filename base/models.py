@@ -46,9 +46,9 @@ class PostLike(models.Model):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
-    title = models.CharField(max_length=200)                            # required field
-    description = models.TextField(max_length=3000)                     # required field
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts", null=True)
+    title = models.CharField(max_length=200, null= True)                            # required field
+    description = models.TextField(max_length=3000, null=True)                     # required field
     created = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='post_user', blank=True, through=PostLike)
     comments = models.ManyToManyField('Comment', related_name='post_comment', blank=True)
@@ -71,7 +71,7 @@ class CommentLike(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    detail = models.TextField(max_length=3000)
+    detail = models.TextField(max_length=3000, null=True)
     created = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='comment_user', blank=True, through=CommentLike)
     _id = models.AutoField(primary_key=True, editable=False)
